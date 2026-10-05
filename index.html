@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kennetech | سامانه جامع جرم‌شناسی داده و هوش نظارتی دیده‌بان</title>
+  <!-- فونت وزیرمتن برای استایل سازمانی -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #070b13;
+      --bg-panel: #0d1322;
+      --border-color: #1e293b;
+      --accent-cyan: #38bdf8;
+      --accent-amber: #f59e0b;
+      --accent-danger: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-main);
+      font-family: 'Vazirmatn', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* هدر و ناوبری */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: rgba(7, 11, 19, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 5%;
+      z-index: 1000;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      font-size: 1.25rem;
+      letter-spacing: 1px;
+    }
+
+    .brand .logo-icon {
+      color: var(--accent-cyan);
+      font-size: 1.5rem;
+      animation: pulseGlow 3s infinite;
+    }
+
+    .brand span {
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .cta-btn {
+      background: linear-gradient(135deg, #0284c7, #6366f1);
+      color: white;
+      border: 1px solid var(--accent-cyan);
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
+    }
+
+    /* بخش قهرمان (Hero Section) */
+    .hero {
+      padding: 140px 5% 80px;
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      background: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 60%);
+    }
+
+    .hero-badge {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--accent-amber);
+      padding: 0.25rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      max-width: 900px;
+      line-height: 1.3;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 span {
+      color: var(--accent-cyan);
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn-secondary {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.6rem 1.5rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    /* بخش قابلیت‌ها و ماژول‌ها */
+    .features {
+      padding: 80px 5%;
+      background: rgba(13, 19, 34, 0.5);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    .feature-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: #f1f5f9;
+    }
+
+    .feature-card p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* بخش معماری و تکنولوژی‌ها */
+    .tech-stack {
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .tech-badges {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .tech-badge {
+      background: #111827;
+      border: 1px solid #1f2937;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* فوتر */
+    footer {
+      padding: 40px 5%;
+      background: #04070d;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links:hover a {
+      color: var(--text-main);
+    }
+
+    @keyframes pulseGlow {
+      0% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.08); filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.6)); }
+      100% { opacity: 0.6; transform: scale(1.0; }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      nav { display: none; }
+      .dossier-summary-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- هدر پلتفرم -->
+  <header>
+    <div class="brand">
+      <span class="logo-icon">⬡</span>
+      <span>KENNETECH / دیده‌بان</span>
+    </div>
+    <nav>
+      <a href="#features">ماژول‌های کلیدی</a>
+      <a href="#tech">معماری سیستم</a>
+      <a href="#about">درباره سامانه</a>
+    </nav>
+    <button class="cta-btn" onclick="alert('ورود به محیط عملیاتی سامانه دیده‌بان - نیازمند گواهی امنیتی سازمانی')">ورود به پلتفرم امن</button>
+  </header>
+
+  <!-- بخش هیرو -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span>🛡️</span> پلتفرم سازمانی جرم‌شناسی داده و هوش نظارتی
+    </div>
+    <h1>استقرار ارکستراسیون اطلاعات کلان‌داده با سامانه <span>دیده‌بان (DIDEBAN)</span></h1>
+    <p>کشف شبکه‌های تبانی، ردیابی جریان‌های مالی فرامرزی، تطبیق خودکار کوتاژهای گمرکی و تحلیل پیوندهای چندمرحله‌ای (Multi-Hop) الهام‌گرفته از استانداردهای Palantir Gotham.</p>
+    
+    <div class="hero-actions">
+      <button class="cta-btn" onclick="location.href='https://github.com/i-dehghan/palantir/tree/develop'">مشاهده مخزن ریپازیتوری</button>
+      <button class="btn-secondary" onclick="alert('مستندات معماری .NET 8 و هوش مصنوعی پایتون بارگذاری شد.')">مستندات معماری فنی</button>
+    </div>
+  </section>
+
+  <!-- قابلیت‌ها و ماژول‌ها -->
+  <section id="features" class="features">
+    <div class="section-title">
+      <h2>ماژول‌های تخصصی عملیاتی</h2>
+      <p>ابزارهای پیشرفته تحلیل جرم‌شناسی و بازرسی هوشمند برای بازرسان و تحلیلگران کلان‌داده</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">🕸️</span>
+        <h3>استودیو گراف پیوندی (Multi-Hop Traversal)</h3>
+        <p>کشف ارتباطات پنهان میان اشخاص، حساب‌های بانکی، شرکت‌ها و خطوط ارتباطی با قابلیت تحلیل خوشه‌ها و شناسایی گره‌های مرکزی (Hubs).</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🛃</span>
+        <h3>تشخیص تقلب گمرکی و قاعده ۲-الف (GIR 2a)</h3>
+        <p>انطباق هوشمند اظهارنامه‌ها و شناسایی تفکیک قطعات منفصله کالاهای کامل جهت جلوگیری از فرار حقوق ورودی گمرکی.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">💳</span>
+        <h3>نظارت بانکی و مبارزه با پولشویی (AML)</h3>
+        <p>ردیابی حساب‌های واسط (Mule Accounts)، تحلیل الگوهای تخلیه فوق‌سریع و کشف شبکه‌های تجمیع وجوه مشکوک.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">📡</span>
+        <h3>تحلیل ترافیک مخابراتی (CDR & SIM-Box)</h3>
+        <p>شناسایی درگاه‌های قاچاق مکالمات، تحلیل سلول‌های BTS و کشف ناهنجاری‌های رادیویی با ضریب دقت بالا.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🤖</span>
+        <h3>دستیار هوشمند پرونده (Forensic Copilot)</h3>
+        <p>موتور استنتاج مبتنی بر مدل زبانی بزرگ (LLM) جهت تولید گزارش‌های رسمی کارشناسی و پیش‌بینی اقدامات آتی متخلفین.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🗺️</span>
+        <h3>نقشه تاکتیکال و تایم‌لاین زنده (GIS & Timeline)</h3>
+        <p>رصد همزمان جغرافیایی رویدادها، بازپخش زمان‌بندی فرآیند پرونده و فیلتر پیشرفته بازه‌های زمانی تخلف.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- تکنولوژی‌ها و معماری -->
+  <section id="tech" class="tech-stack">
+    <div class="section-title">
+      <h2>پشته فناوری و معماری مهندسی</h2>
+      <p>طراحی‌شده بر پایه استانداردهای روز نرم‌افزاری جهان با بالاترین کارایی و امنیت</p>
+    </div>
+
+    <div class="tech-badges">
+      <div class="tech-badge">⚡ Angular 22 (Signals & Standalone)</div>
+      <div class="tech-badge">⚙️ .NET 8 Enterprise Backend</div>
+      <div class="tech-badge">🐍 Python Intelligence Engine</div>
+      <div class="tech-badge">📊 Apache ECharts Graph Studio</div>
+      <div class="tech-badge">📄 HTML2Canvas & jsPDF Reporting</div>
+    </div>
+  </section>
+
+  <!-- فوتر -->
+  <footer>
+    <div>© 2026 Kennetech Corp. تمامی حقوق برای پلتفرم دیده‌بان محفوظ است.</div>
+    <div class="footer-links">
+      <a href="https://github.com/i-dehghan/palantir/tree/develop" target="_blank">GitHub Repository</a>
+      <a href="#">امنیت و حریم خصوصی</a>
+      <a href="#">پشتیبانی فنی</a>
+    </div>
+  </footer>
+
+</body>
+</html>
